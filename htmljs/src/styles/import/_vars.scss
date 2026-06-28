@@ -1,13 +1,18 @@
-/** Colors **/
+/** Colors — tema MAZZA / Controle Volume **/
 
-$primary-color-dark:   #00796B;
-$primary-color:        #009688;
-$primary-color-light:  #B2DFDB;
-$primary-color-text:   #FFFFFF;
-$accent-color:         #FFC107;
-$primary-text-color:   #212121;
-$secondary-text-color: #757575;
-$divider-color:        #BDBDBD;
+$theme-bg:             #1a1a2e;
+$theme-panel:          #16213e;
+$theme-input:          #0f3460;
+$theme-border:         #2a3f5f;
+
+$primary-color-dark:   #0f3460;
+$primary-color:        #e8a838;
+$primary-color-light:  #16213e;
+$primary-color-text:   #1a1a2e;
+$accent-color:         #4caf50;
+$primary-text-color:   #eaeaea;
+$secondary-text-color: #8899aa;
+$divider-color:        #2a3f5f;
 
 $beer-temp-color:      rgb(41,170,41);
 $beer-set-color:       rgb(240, 100, 100);
@@ -42,7 +47,7 @@ $medium-and-down: "only screen and (max-width : #{$medium-screen})" !default;
 $medium-only: "only screen and (min-width : #{$small-screen-up}) and (max-width : #{$medium-screen})" !default;
 
 // Typography
-$off-black: rgba(0, 0, 0, 0.87) !default;
+$off-black: rgba(234, 234, 234, 0.87) !default;
 $h1-fontsize: 4.2rem !default;
 $h2-fontsize: 3.56rem !default;
 $h3-fontsize: 2.92rem !default;

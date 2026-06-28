@@ -13,7 +13,7 @@
         height: auto;
     
         &:nth-child(even) {
-            background-color: #eee;
+            background-color: $theme-input;
         }
     }
 

@@ -19,7 +19,7 @@
 }
 
 .navbar {
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid $theme-border;
 }
 
 .navitems {
@@ -36,7 +36,7 @@
     text-transform: uppercase;
     font-size: 14px;
     font-weight: 600;
-    color: #424f5a;
+    color: $secondary-text-color;
     text-align: center;
     outline: none;
     &.nav-selected {
@@ -63,7 +63,7 @@
     padding: 5px;
     width: 150px;
     float: left;
-    color: #555
+    color: $secondary-text-color;
 }
 
 .device-titleNapply {
@@ -86,7 +86,7 @@
     float: left;
     clear: both;
     font-size: 1.2em;
-    color: #306fa9
+    color: $primary-color
 }
 
 #installed-device,
@@ -111,7 +111,8 @@
 }
 
 .modal-content {
-    background-color: #fefefe;
+    background-color: $theme-panel;
+    color: $primary-text-color;
     margin: auto;
     padding: 20px;
     border: 1px solid #888;

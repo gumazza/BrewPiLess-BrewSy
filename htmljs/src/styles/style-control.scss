@@ -13,7 +13,7 @@
 /** Tabs **/
 
 .navbar {
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid $theme-border;
 }
 
 .navitems {
@@ -30,7 +30,7 @@
     text-transform: uppercase;
     font-size: 14px;
     font-weight: 600;
-    color: #424f5a;
+    color: $secondary-text-color;
     text-align: center;
     outline: none;
     &.nav-selected {
@@ -48,7 +48,7 @@
     z-index: 10;
     bottom: 0;
     height: 3px;
-    background: #458CFF;
+    background: $primary-color;
     display: block;
     left: 0;
     transition: left .2s ease;
@@ -73,11 +73,11 @@ th:not(:last-child) {
 }
 
 .profileTable tbody tr.odd {
-    background: #EEE;
+    background: $theme-input;
 }
 
 .profileTable tbody tr.even {
-    background: #FFF;
+    background: $theme-panel;
 }
 
 .for-time {
