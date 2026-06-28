@@ -97,5 +97,9 @@ var PCTRL = {
 };
 
 function loaded() {
+    if (Q("#verinfo")) {
+        Q("#verinfo").innerHTML = "v" + JSVERSION;
+    }
+    getActiveNavItem();
     PCTRL.init();
 }

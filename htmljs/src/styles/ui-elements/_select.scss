@@ -1,10 +1,28 @@
 select.md {
-  width: 100%;
-  font-size: 16px;
-  height: (16px * 1.6);
-  padding: 4 4 2;
-  background: none;
-  border: none;
-  line-height: 1.6;
+  width: auto;
+  max-width: 100%;
+  min-width: 26ch;
+  font-size: 11px;
+  height: auto;
+  min-height: 24px;
+  padding: 3px 20px 3px 8px;
+  background: #fff;
+  border: 1px solid #ccc;
+  line-height: 1.2;
   box-shadow: none;
+  box-sizing: border-box;
+  overflow: visible;
+  text-overflow: clip;
+  white-space: nowrap;
+  text-align: center;
+  text-align-last: center;
+}
+
+.profileTable select.condition,
+.profileTable select.md {
+  width: auto;
+  min-width: 26ch;
+  max-width: 100%;
+  margin: 0 auto;
+  display: inline-block;
 }

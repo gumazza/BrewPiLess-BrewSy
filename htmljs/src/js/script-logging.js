@@ -57,9 +57,9 @@ var logs = {
                     success: function(d) {
                         location.reload();
                     },
-                    fail: function(d) {
-                        alert("<%= script_logging_failed_stop_for %>" + d);
-                    }
+                fail: function(d, msg) {
+                    alert("<%= script_logging_failed_stop_for %>" + ajaxErrorText(d, msg));
+                }
                 });
             }
         }
@@ -98,7 +98,7 @@ var logs = {
                         location.reload();
                     },
                     fail: function(d,s) {
-                        alert("<%= script_logging_failed_start_for %> " + d +" "+s);
+                        alert("<%= script_logging_failed_start_for %> " + ajaxErrorText(d, s));
                     }
                 });
             }
@@ -129,14 +129,18 @@ var logs = {
                 url: t.rmurl + n,
                 m: "GET",
                 success: function(d) {
-                    var r = JSON.parse(d);
-                    t.fs = r;
-                    t.fsinfo(r.size, r.used);
-                    t.ll.splice(n, 1);
-                    t.list(t.ll);
+                    try {
+                        var r = JSON.parse(d);
+                        t.fs = r;
+                        t.fsinfo(r.size, r.used);
+                        t.ll.splice(n, 1);
+                        t.list(t.ll);
+                    } catch (e) {
+                        alert("<%= script_logging_failed_delete_for %>" + d);
+                    }
                 },
-                fail: function(d) {
-                    alert("<%= script_logging_failed_delete_for %>" + d);
+                fail: function(st, msg) {
+                    alert("<%= script_logging_failed_delete_for %>" + ajaxErrorText(st, msg));
                 }
             });
         }
@@ -202,8 +206,8 @@ var logs = {
                         th[i].style.display = "none";
                 } else window.plato = false;
             },
-            fail: function(e) {
-                alert("<%= failed %>:" + e);
+            fail: function(e, msg) {
+                alert("<%= failed %>:" + ajaxErrorText(e, msg));
             }
         });
     },
@@ -454,8 +458,8 @@ function update() {
         success: function(d) {
             alert("<%= done %>");
         },
-        fail: function(e) {
-            alert("<%= failed %>:" + e);
+        fail: function(e, msg) {
+            alert("<%= failed %>:" + ajaxErrorText(e, msg));
         }
     });
 

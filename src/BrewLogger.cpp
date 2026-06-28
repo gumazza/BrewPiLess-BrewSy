@@ -119,6 +119,7 @@ BrewLogger::BrewLogger(void){
 
 	void BrewLogger::rmLog(int index)
 	{
+		if(!isValidLogIndex(index)) return;
 		//TODO: race condition
 		// multiple access issue
 		char buff[36];
@@ -137,6 +138,12 @@ BrewLogger::BrewLogger(void){
 
 		_checkspace();
 		_saveIdxFile();
+	}
+
+	bool BrewLogger::isValidLogIndex(int index) const
+	{
+		if(index < 0 || index >= MAX_LOG_FILE_NUMBER) return false;
+		return _pFileInfo->files[index].name[0] != '\0';
 	}
 
 	bool BrewLogger::resumeSession()

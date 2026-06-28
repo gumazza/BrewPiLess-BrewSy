@@ -150,6 +150,20 @@ extern "C" {
 #define GETSTATUS_PATH "/getstatus"
 #define DEFAULT_INDEX_FILE     "index.htm"
 
+static bool requireWebAuth(AsyncWebServerRequest *request, SystemConfiguration *syscfg)
+{
+	if(!request->authenticate(syscfg->username, syscfg->password)){
+		request->requestAuthentication();
+		return false;
+	}
+	return true;
+}
+
+static bool isProtectedWebPage(const String &path)
+{
+	return path.endsWith("/config.htm") || path.endsWith("/backup.htm");
+}
+
 #if EanbleParasiteTempControl
 #define ParasiteTempControlPath "/ptc"
 #endif
@@ -405,8 +419,42 @@ class BrewPiWebHandler: public AsyncWebHandler
 		request->send(response);
 	}
 
+	bool sendEmbeddedFile(AsyncWebServerRequest *request,String path)
+	{
+		bool gzip;
+		uint32_t size;
+		const uint8_t* file=getEmbeddedFile(path.c_str(),gzip,size);
+		if(!file) return false;
+
+		DBG_PRINTF("using embedded file:%s\n",path.c_str());
+		if(gzip){
+			#if defined(ESP32)
+			const uint8_t *fileData = file;
+			AsyncWebServerResponse *response = request->beginResponse("text/html", size,[=](uint8_t *buffer, size_t maxLen, size_t index) -> size_t {
+				size_t remaining = size - index;
+				size_t toSend = (remaining > maxLen) ? maxLen : remaining;
+				memcpy(buffer, fileData + index, toSend);
+				return toSend;
+			});
+			#else
+			AsyncWebServerResponse *response = request->beginResponse_P(200, "text/html", file, size);
+			#endif
+			response->addHeader("Content-Encoding", "gzip");
+			response->addHeader("Cache-Control","no-cache, no-store, must-revalidate");
+			request->send(response);
+		}else{
+			sendProgmem(request,(const char*)file,getContentType(path));
+		}
+		return true;
+	}
+
 	void sendFile(AsyncWebServerRequest *request,String path)
 	{
+		// embedded pages take precedence over stale LittleFS copies
+		if(path.endsWith(".htm") || path.endsWith(".html")){
+			if(sendEmbeddedFile(request,path)) return;
+		}
+
 		//workaround for safari
 		if(path.endsWith(".js")){
 			String pathWithJgz = path.substring(0,path.lastIndexOf('.')) + ".jgz";
@@ -457,31 +505,7 @@ class BrewPiWebHandler: public AsyncWebHandler
 			request->send(response);
 			return;
 		}
-		//else, embedded html file
-		bool gzip;
-		uint32_t size;
-		const uint8_t* file=getEmbeddedFile(path.c_str(),gzip,size);
-		if(file){
-			DBG_PRINTF("using embedded file:%s\n",path.c_str());
-			if(gzip){
-				#if defined(ESP32)
-                AsyncWebServerResponse *response = request->beginResponse("text/html", size,[=](uint8_t *buffer, size_t maxLen, size_t index) -> size_t {
-					 //Write up to "maxLen" bytes into "buffer" and return the amount written.
-  					//index equals the amount of bytes that have been already sent
-  					//You will not be asked for more bytes once the content length has been reached.
-  					//Keep in mind that you can not delay or yield waiting for more data!
-  					//Send what you currently have and you will be asked for more again
-  					memcpy(buffer,file + index, maxLen);
-					return maxLen;
-				});
-
-				#else
-                AsyncWebServerResponse *response = request->beginResponse_P(200, "text/html", file, size);
-				#endif
-                response->addHeader("Content-Encoding", "gzip");
-                request->send(response);
-			}else sendProgmem(request,(const char*)file,getContentType(path));
-		}
+		sendEmbeddedFile(request,path);
 	}	  
 public:
 	BrewPiWebHandler(void){}
@@ -805,8 +829,9 @@ public:
 					}
 			}
 			*/
-	 	    if(syscfg->passwordLcd && !request->authenticate(syscfg->username, syscfg->password))
-	        return request->requestAuthentication();
+	 	    if(isProtectedWebPage(path) && !requireWebAuth(request, syscfg)) return;
+
+	 	    if(syscfg->passwordLcd && !requireWebAuth(request, syscfg)) return;
 
 	 		sendFile(request,path); //request->send(FileSystem, path);
 		}
@@ -1234,6 +1259,10 @@ public:
 			}else if(request->hasParam("rm")){
 				int index=request->getParam("rm")->value().toInt();
 				DBG_PRINTF("Delete log file %d\n",index);
+				if(!brewLogger.isValidLogIndex(index)){
+					request->send(404,ApplicationJsonType,"{\"error\":\"invalid\"}");
+					return;
+				}
 				brewLogger.rmLog(index);
 
 				request->send(200,ApplicationJsonType,brewLogger.fsinfo());
@@ -1579,6 +1608,9 @@ public:
 	NetworkConfig(){}
 
 	void handleRequest(AsyncWebServerRequest *request){
+		SystemConfiguration *syscfg=theSettings.systemConfiguration();
+		if(!requireWebAuth(request, syscfg)) return;
+
 		if(request->url() == WIFI_SCAN_PATH) handleNetworkScan(request);
 		else if(request->url() == WIFI_CONNECT_PATH) handleNetworkConnect(request);
 		else if(request->url() == WIFI_DISC_PATH) handleNetworkDisconnect(request);

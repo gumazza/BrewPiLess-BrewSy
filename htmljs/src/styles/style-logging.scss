@@ -11,6 +11,22 @@
 @import 'ui-elements/switch';
 @import 'ui-elements/table';
 @import 'ui-elements/textarea';
+
+#logname {
+    color: #000;
+    -webkit-text-fill-color: #000;
+    background: transparent;
+    background-color: transparent;
+    background-image: none;
+    border: 1px solid #ccc;
+    display: inline-block;
+    width: auto;
+    padding: 8px 10px;
+    margin: 8px 4px;
+    vertical-align: middle;
+    box-sizing: border-box;
+}
+
 .hint {
     padding-left: 140px;
     margin-top: 0;

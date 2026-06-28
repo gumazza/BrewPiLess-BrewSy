@@ -10,17 +10,18 @@
             c.onreadystatechange = function() {
                 if (c.readyState == 4) {
                     if (c.status == 200) {
-                        b.success(c.responseText)
-                    } else {
-                        c.onerror(c.status)
+                        if (typeof b.success != "undefined") b.success(c.responseText)
+                    } else if (typeof b.fail != "undefined") {
+                        b.fail(c.status, c.responseText)
                     }
                 }
             };
             c.ontimeout = function() {
                 if (typeof b["timeout"] != "undefined") b.timeout();
-                else c.onerror(-1)
-            }, c.onerror = function(a) {
-                if (typeof b["fail"] != "undefined") b.fail(a)
+                else if (typeof b.fail != "undefined") b.fail(-1, "timeout")
+            };
+            c.onerror = function() {
+                if (typeof b.fail != "undefined") b.fail(c.status || 0, c.responseText || "network error")
             };
             c.open(b.m, b.url, true);
             if (typeof b["data"] != "undefined") {

@@ -73,11 +73,77 @@ th:not(:last-child) {
 }
 
 .profileTable tbody tr.odd {
-    background: $theme-input;
+    background: #eee;
 }
 
 .profileTable tbody tr.even {
-    background: $theme-panel;
+    background: #fff;
+}
+
+.profileTable td[contenteditable="true"],
+.profileTable .stage-temp,
+.profileTable .stage-time,
+.profileTable .stage-sg,
+.profileTable .stage-stabletime {
+    color: #000;
+    font-size: 14px;
+}
+
+.profileTable thead th {
+    color: #000;
+}
+
+#profile-edit {
+    margin: 6px;
+    width: 780px;
+    position: relative;
+    @include for-tablet-landscape-down {
+        width: 48%;
+    }
+
+    input[type="datetime-local"],
+    #startdate {
+        color: #000;
+        -webkit-text-fill-color: #000;
+        background: #fff;
+        background-color: #fff;
+        background-image: none;
+        border: 1px solid #ccc;
+        display: inline-block;
+        width: auto;
+        padding: 8px 10px;
+        margin: 8px 4px;
+    }
+
+    select.condition {
+        color: #000;
+        -webkit-text-fill-color: #000;
+        background: #fff;
+        background-color: #fff;
+        background-image: none;
+        border: 1px solid #ccc;
+        min-width: 26ch;
+        width: auto;
+        max-width: 100%;
+        height: auto;
+        min-height: 24px;
+        font-size: 11px;
+        line-height: 1.2;
+        padding: 3px 20px 3px 8px;
+        display: inline-block;
+        margin: 0 auto;
+        box-sizing: border-box;
+        overflow: visible;
+        text-overflow: clip;
+        white-space: nowrap;
+        text-align: center;
+        text-align-last: center;
+        vertical-align: middle;
+    }
+
+    .start-date {
+        color: #000;
+    }
 }
 
 .for-time {
@@ -88,8 +154,16 @@ th:not(:last-child) {
 table.profileTable {
     width: 100%;
     border-collapse: collapse;
+    table-layout: auto;
     thead {
         border-bottom: 1px solid rgba(0, 0, 0, 0.87);
+    }
+    th:nth-child(2),
+    td:nth-child(2) {
+        min-width: 200px;
+        width: auto;
+        overflow: visible;
+        text-align: center;
     }
 }
 
@@ -117,6 +191,12 @@ table.profileTable {
 
 .condition-con {
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 0;
+    width: 100%;
+    overflow: visible;
 }
 
 #profile-s {
@@ -125,22 +205,47 @@ table.profileTable {
     }
 }
 
-#profile-edit {
-    margin: 6px;
-    width: 510px;
-    position: relative;
-    @include for-tablet-landscape-down {
-        width: 48%;
-    }
-}
-
 #tc_chart {
-    width: calc(100% - 510px);
-    min-width: 360px;
+    width: calc(100% - 780px);
+    min-width: 280px;
     float: right;
     height: 390px;
     margin: 16px 0;
+    text {
+        color: #000;
+        fill: #000;
+    }
     @include for-tablet-landscape-down {
         width: 38%;
     }
+}
+
+#delbtn,
+#clearbtn,
+#setnow,
+#saveasbtn,
+#loadbtn {
+    color: #000;
+}
+
+#capgravityinput,
+#cappressure,
+#beer-t,
+#fridge-t,
+#captimeinput,
+#ptc-control input,
+#humidity-control input,
+#hc-target {
+    color: #000;
+    -webkit-text-fill-color: #000;
+    background: #fff;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    display: inline-block;
+    width: auto;
+    padding: 8px 10px;
+    margin: 8px 4px;
+    vertical-align: middle;
+    box-sizing: border-box;
 }

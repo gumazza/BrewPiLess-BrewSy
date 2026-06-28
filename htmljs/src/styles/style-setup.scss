@@ -111,10 +111,12 @@
 }
 
 .modal-content {
-    background-color: $theme-panel;
-    color: $primary-text-color;
+    background-color: $theme-bg;
+    color: #000;
     margin: auto;
-    padding: 20px;
+    padding: 1.25rem 1.5rem;
     border: 1px solid #888;
-    width: 80%
+    width: 80%;
+    line-height: 1.5;
+    box-sizing: border-box;
 }

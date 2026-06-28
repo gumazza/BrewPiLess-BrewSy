@@ -5,23 +5,34 @@ function s_ajax(b) {
     c.onreadystatechange = function() {
         if (c.readyState == 4) {
             if (c.status == 200) {
-                b.success(c.responseText)
-            } else {
-                c.onerror(c.status)
+                if (typeof b.success != "undefined") b.success(c.responseText)
+            } else if (typeof b.fail != "undefined") {
+                b.fail(c.status, c.responseText)
             }
         }
     };
     c.ontimeout = function() {
         if (typeof b["timeout"] != "undefined") b.timeout();
-        else c.onerror(-1)
-    }, c.onerror = function(a) {
-        if (typeof b["fail"] != "undefined") b.fail(a)
+        else if (typeof b.fail != "undefined") b.fail(-1, "timeout")
+    };
+    c.onerror = function() {
+        if (typeof b.fail != "undefined") b.fail(c.status || 0, c.responseText || "network error")
     };
     c.open(b.m, b.url, true);
     if (typeof b["data"] != "undefined") {
         c.setRequestHeader("Content-Type", (typeof b["mime"] != "undefined") ? b["mime"] : "application/x-www-form-urlencoded");
         c.send(b.data)
     } else c.send()
+}
+
+function ajaxErrorText(status, response) {
+    if (typeof status === "object" || (typeof ProgressEvent !== "undefined" && status instanceof ProgressEvent)) {
+        return response || "erro de rede";
+    }
+    if (status === 401) return "login necessario";
+    if (status === 404) return "nao encontrado";
+    if (status === 0) return response || "erro de rede";
+    return String(status) + (response ? ": " + response : "");
 }
 
 var Q = function(d) {
@@ -97,11 +108,53 @@ Date.prototype.shortLocalizedString = function() {
     return ds + " " + T(HH) + ":" + T(MM);
 };
 
+function updatePageTitle(c) {
+    if (!c || typeof c.nn === "undefined") return;
+    var el = Q("#hostname");
+    if (!el) return;
+    el.innerHTML = c.nn;
+    document.title = c.nn;
+    el.dataset.titleLoaded = "1";
+}
+
+function loadPageTitle() {
+    var el = Q("#hostname");
+    if (!el || el.dataset.titleLoaded) return;
+    try {
+        var ws = new WebSocket("ws://" + document.location.host + "/ws");
+        ws.onmessage = function(e) {
+            if (e.data.length > 2 && e.data.charAt(0) === "A" && e.data.charAt(1) === ":") {
+                try {
+                    updatePageTitle(JSON.parse(e.data.substring(2)));
+                    if (el.dataset.titleLoaded) ws.close();
+                } catch (err) {}
+            }
+        };
+    } catch (e) {}
+}
+
+(function hookBwfPageTitle() {
+    if (typeof BWF === "undefined") return;
+    var origInit = BWF.init;
+    BWF.init = function(arg) {
+        arg = arg || {};
+        var handlers = arg.handlers || {};
+        var origA = handlers.A;
+        handlers.A = function(c) {
+            updatePageTitle(c);
+            if (typeof origA === "function") origA(c);
+        };
+        arg.handlers = handlers;
+        return origInit.call(BWF, arg);
+    };
+})();
+
 function getActiveNavItem() {
     var path = window.location.pathname.split("/").pop();
     if (path == "") path = "index.htm";
     var element = Q('.options>li>a[href="/' + path + '"]');
     if(element) element.className += 'active';
+    loadPageTitle();
 }
 
 function formatDate(dt) {
@@ -126,3 +179,37 @@ function formatDateForPicker(date) {
     function dd(n) { return (n < 10) ? '0' + n : n; }
     return date.getFullYear() + "-" + dd(date.getMonth() + 1) + "-" + dd(date.getDate()) + "T" + dd(h) + ":" + dd(m);
 }
+
+(function applyMazzaModalHook() {
+    function fixModal(modal) {
+        var content = modal.querySelector('.modal-content');
+        if (!content) return;
+        content.style.setProperty('background-color', '#f5f5f5', 'important');
+        content.style.setProperty('background', '#f5f5f5', 'important');
+        content.style.setProperty('color', '#000', 'important');
+        content.style.setProperty('border', '1px solid #bbb', 'important');
+        content.querySelectorAll('input, select, textarea').forEach(function(el) {
+            el.style.setProperty('background-color', '#fff', 'important');
+            el.style.setProperty('background-image', 'none', 'important');
+            el.style.setProperty('color', '#000', 'important');
+            el.style.setProperty('border', '1px solid #888', 'important');
+            el.style.setProperty('display', 'inline-block', 'important');
+            el.style.setProperty('width', 'auto', 'important');
+            el.style.setProperty('max-width', '100%', 'important');
+            el.style.setProperty('padding', '8px 10px', 'important');
+            el.style.setProperty('margin', '8px 4px', 'important');
+        });
+    }
+    function fixAll() {
+        document.querySelectorAll('.modal').forEach(function(modal) {
+            if (modal.style.display !== 'none') fixModal(modal);
+        });
+    }
+    new MutationObserver(fixAll).observe(document.documentElement, {
+        subtree: true,
+        attributes: true,
+        attributeFilter: ['style']
+    });
+    document.addEventListener('DOMContentLoaded', fixAll);
+    fixAll();
+})();

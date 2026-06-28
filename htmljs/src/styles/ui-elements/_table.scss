@@ -2,22 +2,30 @@
     th {
         padding: 8px;
         white-space: nowrap;
-        color: rgba(0, 0, 0, 0.541176);
+        color: #000;
         font-weight: bold;
         font-family: Helvetica, Arial, sans-serif;
         font-size: 17px;
         text-align: left;
+        background: transparent;
     }
 
     tr {
         height: auto;
     
         &:nth-child(even) {
-            background-color: $theme-input;
+            background-color: #fff;
+        }
+        &:nth-child(odd):not(:first-child) {
+            background-color: #eee;
         }
     }
 
-    td {
+    td,
+    .logid,
+    .logdate {
         padding: 8px;
+        color: #000;
+        background: transparent;
     }
 }

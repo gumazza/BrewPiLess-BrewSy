@@ -31,7 +31,14 @@ input {
 }
 
 .modal input {
-    width: 95%;
+    width: auto;
+    max-width: calc(100% - 8px);
+    display: inline-block;
+    background: transparent;
+    background-color: transparent;
+    color: #fff;
+    -webkit-text-fill-color: #fff;
+    border: 1px solid #2a3f5f;
 }
 
 #networkselection button {

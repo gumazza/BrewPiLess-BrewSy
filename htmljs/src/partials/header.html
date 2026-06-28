@@ -1,5 +1,6 @@
 <header layout horizontal main-justified cross-center relative class="header">
     <h1 class="header_title"><span id="hostname">BrewPiLess</span> <span id="verinfo" class="header_version-display"></span></h1>
+    <script>(function(){var h=document.getElementById("hostname");if(!h||h.dataset.titleLoaded)return;try{var w=new WebSocket("ws://"+location.host+"/ws");w.onmessage=function(e){if(e.data.length>2&&e.data.charAt(0)==="A"&&e.data.charAt(1)===":"){try{var c=JSON.parse(e.data.substring(2));if(c.nn){h.textContent=c.nn;document.title=c.nn;h.dataset.titleLoaded="1";w.close()}}catch(x){}}}}catch(x){}})();</script>
     <div navigation>
         <div menuToggle>
             <input type="checkbox" />

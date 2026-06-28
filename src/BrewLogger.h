@@ -112,6 +112,7 @@ public:
 
 	String loggingStatus(void);
 	void rmLog(int index);
+	bool isValidLogIndex(int index) const;
 	bool isLogging(void){ return _recording; }
 
 	bool startSession(const char *filename,bool calibrating,bool wobf=false);
