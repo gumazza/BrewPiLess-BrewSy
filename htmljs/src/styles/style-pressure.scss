@@ -8,3 +8,41 @@
 @import 'ui-elements/switch';
 @import 'ui-elements/buttons';
 @import 'ui-elements/modal';
+
+#dlg_calibrate .modal-content {
+    background: #fff !important;
+    color: #000 !important;
+    border: 1px solid #ccc !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, .2) !important;
+    width: fit-content !important;
+    max-width: min(560px, 94vw) !important;
+    margin: 2rem auto !important;
+    padding: 1.25rem 1.5rem !important;
+    box-sizing: border-box;
+    line-height: 1.5;
+
+    p, label, span {
+        color: #000 !important;
+        -webkit-text-fill-color: #000 !important;
+    }
+
+    input[type=text] {
+        color: #000 !important;
+        -webkit-text-fill-color: #000 !important;
+        background: #fff !important;
+        border: 1px solid #ccc !important;
+        display: inline-block;
+        vertical-align: middle;
+        margin: 8px 4px;
+        padding: 8px 10px;
+        width: auto;
+        max-width: 120px;
+    }
+
+    .card-footer {
+        border-top: 1px solid #ccc !important;
+        margin-top: 1rem;
+        padding-top: 0.75rem;
+        text-align: right;
+    }
+}

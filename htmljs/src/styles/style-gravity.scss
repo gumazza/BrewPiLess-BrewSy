@@ -39,3 +39,23 @@
     margin-top:2em;
     margin-bottom:4em;
 }
+
+#dlg_addcalpoint .modal-content {
+    background: #fff !important;
+    color: #000 !important;
+    border: 1px solid #ccc !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, .2) !important;
+
+    h5, label, span:not(.delbutton), th, td, .modal-title {
+        color: #000 !important;
+        -webkit-text-fill-color: #000 !important;
+    }
+
+    input[type=number],
+    input[type=text] {
+        color: #000 !important;
+        -webkit-text-fill-color: #000 !important;
+        background: #fff !important;
+        border: 1px solid #ccc !important;
+    }
+}

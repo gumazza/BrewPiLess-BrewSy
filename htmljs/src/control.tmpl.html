@@ -229,22 +229,22 @@
 
         <!-- Humidity Control-->
         <div id="humidity-control" class="card" horizontal layout main-justified cross-center>
-            <h6>Humidity Control</h6>
+            <h6><%= control_humidity_title %></h6>
             <div layout horizontal cross-center>
                 <h6 class="inline-header">
-                    Mode
+                    <%= control_humidity_mode %>
                 </h6>
                 <select id="hc-mode">
-                    <option value="0">Off</option>
-                    <option value="1">Control</option>
+                    <option value="0"><%= control_humidity_mode_off %></option>
+                    <option value="1"><%= control_humidity_mode_control %></option>
                 </select>
             </div>
 
             <div layout horizontal cross-center>
                 <h6 class="inline-header">
-                    Target Relative Humidity
+                    <%= control_humidity_target %>
                 </h6>
-                <input type="text" id="hc-target" name="target-humidity" size=4> %
+                <input type="text" id="hc-target" name="target-humidity" size=4 placeholder=""> %
             </div>
         
             <div class="card-footer">
