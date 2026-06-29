@@ -52,9 +52,11 @@ LcdDriver LcdDisplay::lcd;
 #endif //#if TWOFACED_LCD
 
 
-// Constant strings used multiple times
-static const char STR_Beer_[] PROGMEM = "Beer ";
-static const char STR_Fridge_[] PROGMEM = "Fridge ";
+// Constant strings used multiple times (PT-BR / MAZZA)
+static const char STR_Beer_Label[] PROGMEM = "Cerveja";
+static const char STR_Beer_Const[] PROGMEM = "Cerv. Const.";
+static const char STR_Beer_Profile[] PROGMEM = "Perfil Ferm.";
+static const char STR_Fridge_[] PROGMEM = "Refrig.";
 static const char STR_Const_[] PROGMEM = "Const.";
 static const char STR_Cool[] PROGMEM = "Cool";
 static const char STR_Heat[] PROGMEM = "Heat";
@@ -115,12 +117,12 @@ void LcdDisplay::setDisplayFlags(uint8_t newFlags) {
 
 
 void LcdDisplay::printBeerTemp(void){
-	printTemperatureAt(6, 1, tempControl.getBeerTemp());
+	printTemperatureAt(8, 1, tempControl.getBeerTemp());
 }
 
 void LcdDisplay::printBeerSet(void){
 	temperature beerSet = tempControl.getBeerSetting();
-	printTemperatureAt(12, 1, beerSet);
+	printTemperatureAt(13, 1, beerSet);
 }
 
 void LcdDisplay::printFridgeTemp(void){
@@ -158,8 +160,8 @@ void LcdDisplay::printTemperature(temperature temp){
 
 //print the stationary text on the lcd.
 void LcdDisplay::printStationaryText(void){
-	printAt_P(0, 0, PSTR("Mode"));
-	printAt_P(0, 1, STR_Beer_);
+	printAt_P(0, 0, PSTR("Modo"));
+	printAt_P(0, 1, STR_Beer_Label);
 	printAt_P(0, 2, (flags & LCD_FLAG_DISPLAY_ROOM) ?  PSTR("Room  ") : STR_Fridge_);
 	printDegreeUnit(18, 1);
 	printDegreeUnit(18, 2);
@@ -183,8 +185,10 @@ void LcdDisplay::printAt(uint8_t x, uint8_t y, char* text){
 	lcd.print(text);
 }
 
-// print mode on the right location on the first line, after "Mode   "
+// print mode on the right location on the first line, after "Modo   "
 void LcdDisplay::printMode(void){
+	lcd.setCursor(7,0);
+	lcd.printSpacesToRestOfLine();
 	lcd.setCursor(7,0);
 	// Factoring prints out of switch has negative effect on code size in this function
 	switch(tempControl.getMode()){
@@ -193,15 +197,13 @@ void LcdDisplay::printMode(void){
 			lcd.print_P(STR_Const_);
 			break;
 		case MODE_BEER_CONSTANT:
-			lcd.print_P(STR_Beer_);
-			lcd.print_P(STR_Const_);
+			lcd.print_P(STR_Beer_Const);
 			break;
 		case MODE_BEER_PROFILE:
-			lcd.print_P(STR_Beer_);
-			lcd.print_P(PSTR("Profile"));
+			lcd.print_P(STR_Beer_Profile);
 			break;
 		case MODE_OFF:
-			lcd.print_P(PSTR("Off"));
+			lcd.print_P(PSTR("Desligado"));
 			break;
 		case MODE_TEST:
 			lcd.print_P(PSTR("** Testing **"));
@@ -224,8 +226,8 @@ void LcdDisplay::printState(void){
 		const char * part2 = STR_empty_string;
 		switch (state){
 			case IDLE:
-				part1 = PSTR("Idl");
-				part2 = STR_ing_for;
+				part1 = PSTR("Aguardando");
+				part2 = STR_empty_string;
 				break;
 			case WAITING_TO_COOL:
 				part1 = STR_Wait_to_;

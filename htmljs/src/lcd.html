@@ -93,7 +93,7 @@
 <script>
 
 var StateText = [
-        "Idling for ",
+        "Aguardando ",
         "Temp. control OFF",
         "Door open",
         "Heating for ",
@@ -131,10 +131,10 @@ var StateText = [
 
     function simLcd(info) {
         var ModeString = {
-            o: "Off",
-            b: "Beer Const.",
-            f: "Fridge Const.",
-            p: "Beer Profile",
+            o: "Desligado",
+            b: "Cerv. Const.",
+            f: "Refrig. Const.",
+            p: "Perfil Ferm.",
             i: "Invalid"
         };
 
@@ -149,12 +149,12 @@ var StateText = [
         }
 
         var lines = [];
-        lines[0] = "Mode   " + ModeString[info.md];
-        lines[1] = "Beer  " + showTemp(info.bt) + " " + showTemp(info.bs) + " &deg;" + info.tu;
+        lines[0] = "Modo   " + ModeString[info.md];
+        lines[1] = "Cerveja" + showTemp(info.bt) + " " + showTemp(info.bs) + " &deg;" + info.tu;
         if (info.rt > -10000 && roomOfridge)
             lines[2] = "Room  " + showTemp(info.rt) + " " + showTemp(-20000) + " &deg;" + info.tu;
         else
-            lines[2] = "Fridge" + showTemp(info.ft) + " " + showTemp(info.fs) + " &deg;" + info.tu;
+            lines[2] = "Refrig." + showTemp(info.ft) + " " + showTemp(info.fs) + " &deg;" + info.tu;
         roomOfridge = !roomOfridge;
         lines[3] = info.sl;
         return lines;
@@ -232,10 +232,10 @@ var StateText = [
 
 <body onload=init()>
     <div id="lcd" class="lcddisplay"><span class="lcd-text">
-             <span class="lcd-line" id="lcd-line-0">Mode   Fridge Const.</span>
-        <span class="lcd-line" id="lcd-line-1">Beer   --.-  --.- °C</span>
-        <span class="lcd-line" id="lcd-line-2">Fridge  0.5   1.0 °C</span>
-        <span class="lcd-line" id="lcd-line-3">Idling for     01m49</span></p>
+             <span class="lcd-line" id="lcd-line-0">Modo   Refrig. Const.</span>
+        <span class="lcd-line" id="lcd-line-1">Cerveja  --.-  --.- °C</span>
+        <span class="lcd-line" id="lcd-line-2">Refrig.  0.5   1.0 °C</span>
+        <span class="lcd-line" id="lcd-line-3">Aguardando     01m49</span></p>
         <p>
     </div>
     <div class="dropdown">

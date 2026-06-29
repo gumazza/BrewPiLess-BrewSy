@@ -2009,7 +2009,7 @@ void setup(void){
 #ifdef EARLY_DISPLAY
 	DBG_PRINTF("Init LCD...\n");
 	display.init();
-	display.printAt_P(1,0,PSTR("Initialize WiFi"));
+	display.printAt_P(1,0,PSTR("Iniciando Wi-Fi"));
 	display.updateBacklight();
 	DBG_PRINTF("LCD Initialized..\n");
 #endif
