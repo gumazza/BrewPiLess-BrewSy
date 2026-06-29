@@ -29,7 +29,7 @@ html, body {
         @include for-tablet-portrait-down {
             display: block;
             position: relative;
-            z-index: 1;
+            z-index: 1002;
             top: 3px;
             user-select: none;
         }
@@ -52,8 +52,9 @@ html, body {
             
             -webkit-touch-callout: none;
             &:checked ~ ul {
-                transform: scale(1.0, 1.0);
+                transform: translate(0, 0);
                 opacity: 1;
+                pointer-events: auto;
             }
             &:checked ~ span {
                 opacity: 1;
@@ -104,6 +105,7 @@ html, body {
         }
         a {
             color: $primary-text-color;
+            -webkit-text-fill-color: $primary-text-color;
             text-transform: uppercase;
             height: 100%;
             padding: 8px;
@@ -113,6 +115,7 @@ html, body {
             &.active {
                 border-bottom: 3px solid $primary-color;
                 color: $primary-color;
+                -webkit-text-fill-color: $primary-color;
             }
             &:hover {
                 border-bottom: 3px solid $secondary-text-color;
@@ -126,14 +129,17 @@ html, body {
             height: 100vh;
             right: 0;
             top: 0;
+            z-index: 1001;
             background: $theme-bg;
             list-style-type: none;
             -webkit-font-smoothing: antialiased;
             /* to stop flickering of text in safari */
             
-            transform-origin: 0% 0%;
+            transform-origin: 100% 0%;
             transform: translate(100%, 0);
-            transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0);
+            opacity: 0;
+            pointer-events: none;
+            transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0), opacity 0.35s ease;
             > li {
                 display: block;
 				height: auto;
@@ -141,16 +147,17 @@ html, body {
             }
             a {
                 color: $primary-text-color;
+                -webkit-text-fill-color: $primary-text-color;
                 height: auto;
                 width: 100%;
                 display: block;
                 &.active {
                     color: $primary-color;
+                    -webkit-text-fill-color: $primary-color;
                     border: none;
                 }
                 &:hover {
                     background: $theme-input;
-                    ;
                     border: none;
                 }
             }
