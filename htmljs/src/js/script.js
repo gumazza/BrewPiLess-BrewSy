@@ -753,38 +753,32 @@
         if(typeof c["G"] != "undefined") gDeviceInfo(c.G);
 
         ptcshow(c);
-        // humidity related
-        var show_h=false;
-        if(typeof c["h"] != "undefined") {
-            Q("#humidity-info").classList.remove("no-display");
-            Q("#humidity").innerHTML= (c.h <=100)?  (c.h + "%"):"--";
-            show_h=true;
-        }
+        // humidity related — painel ativo somente com setpoint configurado
+        var show_h = (typeof c["ht"] != "undefined" && c["ht"] <= 100);
 
-        if(typeof c["hr"] != "undefined") {
-            Q("#room-humidity-info").classList.remove("no-display");
-            Q("#room-humidity").innerHTML= (c.hr <=100)?  (c.hr + "%"):"--";
-            show_h=true;
-        }
-
-        if(typeof c["ht"] != "undefined") {
-            Q("#humidity-set-info").classList.remove("no-display");
-            Q("#humidity-set").innerHTML= (c.h <=100)?  (c.ht + "%"):"--";
-            show_h=true;
-        }else{
-            Q("#humidity-set-info").classList.add("no-display");
-        }
-
-        if(typeof c["hs"] != "undefined") {
-            var hstate=["Idle","Dehumidifying","Humidifying","Wait to Dehumidify","Wait to Humidify","Humidify min Time","Dehumidify min Time"];
-            Q("#hc-state-info").classList.remove("no-display");
-            Q("#hc-state").innerHTML= hstate[c.hs];
-            show_h=true;
-        }else{
-            Q("#hc-state-info").classList.add("no-display");
-        }
-        if(show_h){            
+        if (show_h) {
+            if (typeof c["h"] != "undefined") {
+                Q("#humidity-info").classList.remove("no-display");
+                Q("#humidity").innerHTML = (c.h <= 100) ? (c.h + "%") : "--";
+            }
+            if (typeof c["hr"] != "undefined") {
+                Q("#room-humidity-info").classList.remove("no-display");
+                Q("#room-humidity").innerHTML = (c.hr <= 100) ? (c.hr + "%") : "--";
+            }
+            if (typeof c["ht"] != "undefined") {
+                Q("#humidity-set-info").classList.remove("no-display");
+                Q("#humidity-set").innerHTML = c.ht + "%";
+            }
+            if (typeof c["hs"] != "undefined") {
+                var hstate = ["Idle", "Dehumidifying", "Humidifying", "Wait to Dehumidify", "Wait to Humidify", "Humidify min Time", "Dehumidify min Time"];
+                Q("#hc-state-info").classList.remove("no-display");
+                Q("#hc-state").innerHTML = hstate[c.hs];
+            }
             Q("#humidity-pan").classList.remove("no-display");
+        } else {
+            Q("#humidity-set-info").classList.add("no-display");
+            Q("#hc-state-info").classList.add("no-display");
+            Q("#humidity-pan").classList.add("no-display");
         }
 
     }

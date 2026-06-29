@@ -49,6 +49,7 @@
 /** Chart **/
 
 .chart {
+    position: relative;
     width: calc(100% - 280px);
     @include for-phone-only {
         width: 100%;
@@ -202,4 +203,22 @@
 
 .platounit {
     display: none;
+}
+
+div[main] {
+    position: relative;
+}
+
+#mazza-watermark {
+    position: absolute;
+    right: 12px;
+    top: 398px;
+    max-width: 200px;
+    width: 22vw;
+    min-width: 100px;
+    height: auto;
+    opacity: 0.2;
+    pointer-events: none;
+    z-index: 1;
+    user-select: none;
 }

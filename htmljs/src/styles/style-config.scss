@@ -67,6 +67,20 @@ input {
     text-align: left;
     display: inline-block;
     min-width: 260px;
+
+    .center a,
+    #networks a.ssid,
+    .nwlist a.ssid {
+        color: $primary-color !important;
+        -webkit-text-fill-color: $primary-color !important;
+        font-weight: 600;
+        text-decoration: none;
+
+        &:hover {
+            color: lighten($primary-color, 8%) !important;
+            -webkit-text-fill-color: lighten($primary-color, 8%) !important;
+        }
+    }
 }
 
 #advanced input {

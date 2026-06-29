@@ -52,6 +52,11 @@
     "control_fridgeconst": "Sensor da Refrigeração",
     "control_off": "Desligado",
     "control_apply": "Aplicar",
+    "control_humidity_title": "Controle Umidade",
+    "control_humidity_mode": "Modo",
+    "control_humidity_mode_off": "Desligado",
+    "control_humidity_mode_control": "Controle",
+    "control_humidity_target": "Setpoint Umidade Relativa",
     "control_startdate": "Início Data/Hora:",
     "control_now": "Agora",
     "control_add": "Adic.",
@@ -165,7 +170,7 @@
     "control_cap_control": "CONTROLE SPUNDING",
 
     "__config_html__": "config.html",
-    "config_page_title": "BrewPiLess | Configuração de rede",
+    "config_page_title": "Configuração de rede",
     "config_wait_restart": "Configuração salva. Aguarde a reinicialização... (Observação: se o nome do host for alterado, a página não será recarregada).",
     "config_lcd_auto_off": "Desligar LCD",
     "config_seconds": "segundos",
@@ -228,7 +233,7 @@
 
     "__log_html": "log.html",
 
-    "log_page_title": "BrewPiLess | Registros",
+    "log_page_title": "Registros",
     "log_remote_log": "Registro Remoto",
     "log_enabled": "Habilitar",
     "log_method": "Método:",

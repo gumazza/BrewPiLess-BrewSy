@@ -17,8 +17,15 @@ $GlobalFixCss = '.rssi-bar{background-color:#90ee90!important}' + $FormInputCss 
 $TitleHookJs = '<script id=mazza-title-hook>(function(){function s(n){var h=document.getElementById("hostname");if(!h||!n)return;h.textContent=n;document.title=n;h.dataset.titleLoaded="1";}function l(w){w.addEventListener("message",function(e){if(e.data.length>2&&e.data.charAt(0)==="A"&&e.data.charAt(1)===":"){try{var c=JSON.parse(e.data.substring(2));if(c.nn)s(c.nn);}catch(x){}}});}var h=document.getElementById("hostname");if(h&&!h.dataset.titleLoaded){try{var w=new WebSocket("ws://"+location.host+"/ws");l(w);}catch(x){}}if(typeof BWF!=="undefined"){var o=BWF.init;BWF.init=function(a){a=a||{};var hs=a.handlers||{},oa=hs.A;hs.A=function(c){if(c&&c.nn)s(c.nn);if(typeof oa==="function")oa(c);};a.handlers=hs;return o.call(BWF,a);};}})();</script>'
 
 $ControlExtraInputSel = '#capgravityinput,#cappressure,#beer-t,#fridge-t,#captimeinput,#ptc-control input,#humidity-control input,#hc-target'
-$ControlLayoutCss = '#profile-edit{width:780px!important;max-width:100%!important}#tc_chart{width:calc(100% - 780px)!important;min-width:280px!important}table.profileTable{table-layout:auto!important}.profileTable th:nth-child(2),.profileTable td:nth-child(2){min-width:200px!important;width:auto!important;max-width:none!important;overflow:visible!important;text-align:center!important}.profileTable select.condition,.profileTable select.condition.md,.profileTable select.md,.profileTable select.md.condition,#profile-edit select.condition{min-width:26ch!important;width:auto!important;max-width:100%!important;height:auto!important;min-height:24px!important;overflow:visible!important;text-overflow:clip!important;white-space:nowrap!important;font-size:11px!important;line-height:1.2!important;padding:3px 20px 3px 8px!important;display:inline-block!important;margin:0 auto!important;box-sizing:border-box!important;color:#000!important;-webkit-text-fill-color:#000!important;background:#fff!important;background-color:#fff!important;border:1px solid #ccc!important;-webkit-appearance:auto!important;appearance:auto!important;text-align:center!important;text-align-last:center!important;vertical-align:middle!important}.profileTable td{padding:8px 6px!important;vertical-align:middle!important;overflow:visible!important}.condition-con{display:flex!important;justify-content:center!important;align-items:center!important;min-width:0!important;width:100%!important;overflow:visible!important}'
-$ControlFixCss = $ControlLayoutCss + '#delbtn,#clearbtn,#setnow,#saveasbtn,#loadbtn{color:#000!important}#tc_chart text,#tc_chart .dygraph-axis-label,#tc_chart .dygraph-xlabel,#tc_chart .dygraph-ylabel{color:#000!important;fill:#000!important}' + $ControlExtraInputSel + '{color:#000!important;-webkit-text-fill-color:#000!important;background:#fff!important;background-color:#fff!important;background-image:none!important;border:1px solid #ccc!important;display:inline-block!important;width:auto!important;padding:8px 10px!important;margin:8px 4px!important;vertical-align:middle!important;box-sizing:border-box!important}'
+$ControlLayoutCss = '#profile-s{width:100%!important}#profile-s>div{display:flex!important;flex-direction:row!important;align-items:flex-start!important;width:66.67%!important;max-width:66.67%!important;flex:0 0 66.67%!important;gap:8px!important;flex-wrap:nowrap!important}#profile-edit{flex:2 1 0!important;width:auto!important;min-width:0!important;max-width:none!important;float:none!important;margin:6px!important;overflow-x:auto!important}#tc_chart{flex:1 1 0!important;min-width:160px!important;width:auto!important;max-width:none!important;float:none!important;height:390px!important;margin:16px 0!important}table.profileTable{table-layout:auto!important}.profileTable th:nth-child(2),.profileTable td:nth-child(2){width:1%!important;min-width:0!important;white-space:nowrap!important;max-width:none!important;overflow:visible!important;text-align:center!important}.profileTable .for-time{margin:0 0 2px!important;text-align:center!important;font-size:11px!important;line-height:1.2!important;color:#000!important}.profileTable tr[type=r] .for-time{display:block!important}.profileTable tr[type=r] select.condition,.profileTable tr[type=r] .condition-con{display:none!important}.profileTable select.condition,.profileTable select.condition.md,.profileTable select.md,.profileTable select.md.condition,#profile-edit select.condition{min-width:26ch!important;width:auto!important;max-width:100%!important;height:auto!important;min-height:28px!important;overflow:visible!important;text-overflow:clip!important;white-space:nowrap!important;font-size:14px!important;line-height:1.3!important;padding:5px 22px 5px 8px!important;margin:0 auto!important;box-sizing:border-box!important;color:#000!important;-webkit-text-fill-color:#000!important;background:#fff!important;background-color:#fff!important;border:1px solid #ccc!important;-webkit-appearance:auto!important;appearance:auto!important;text-align:center!important;text-align-last:center!important;vertical-align:middle!important}.profileTable td{padding:8px 6px!important;vertical-align:middle!important;overflow:visible!important}.condition-con{display:inline-flex!important;justify-content:center!important;align-items:center!important;min-width:0!important;width:auto!important;overflow:visible!important}'
+$IndexWatermarkCss = '.chart{position:relative!important}#mazza-watermark{position:absolute!important;right:12px!important;top:398px!important;max-width:200px!important;width:22vw!important;min-width:100px!important;height:auto!important;opacity:0.2!important;pointer-events:none!important;z-index:1!important;user-select:none!important}'
+$PressureDialogCss = '#dlg_calibrate .modal-content{background:#fff!important;background-color:#fff!important;color:#000!important;border:1px solid #ccc!important;box-shadow:0 4px 16px rgba(0,0,0,.2)!important;width:fit-content!important;max-width:min(560px,94vw)!important;margin:2rem auto!important;padding:1.25rem 1.5rem!important;box-sizing:border-box!important;line-height:1.5!important}#dlg_calibrate .modal-content p,#dlg_calibrate .modal-content label,#dlg_calibrate .modal-content span{color:#000!important;-webkit-text-fill-color:#000!important}#dlg_calibrate .modal-content input[type=text]{color:#000!important;-webkit-text-fill-color:#000!important;background:#fff!important;background-color:#fff!important;border:1px solid #ccc!important;display:inline-block!important;vertical-align:middle!important;margin:8px 4px!important;padding:8px 10px!important;width:auto!important;max-width:120px!important}#dlg_calibrate .card-footer{border-top:1px solid #ccc!important;margin-top:1rem!important;padding-top:0.75rem!important;text-align:right!important}'
+$HcFixJs = '<script id=mazza-hc-fix>(function(){function ok(c){return c&&c.m!=0&&c.t&&c.t<=100;}HC_init=function(){var e=Q("#humidity-control");if(e)e.style.display="";var t=Q("#hc-target");if(t)t.value="";var m=Q("#hc-mode");if(m)m.value="0";};HC_show=function(c){var e=Q("#humidity-control");if(e)e.style.display="";if(!ok(c)){if(Q("#hc-target"))Q("#hc-target").value="";if(Q("#hc-mode"))Q("#hc-mode").value="0";return;}Q("#hc-mode").value=c.m;Q("#hc-target").value=c.t;};HC_apply=function(){var target=Q("#hc-target").value.trim();var mode=0,val=0;if(target){val=parseInt(target,10);if(isNaN(val)||val<0||val>100)return;mode=1;if(Q("#hc-mode"))Q("#hc-mode").value="1";}else{if(Q("#hc-mode"))Q("#hc-mode").value="0";}s_ajax({url:"/rh",m:"POST",data:"m="+mode+"&t="+val,success:function(){alert("Concluido");},fail:function(st){alert("Falha:"+st);}});};})();</script>'
+$IndexHumidityFixJs = '<script id=mazza-humidity-pane-fix>(function(){if(typeof BWF==="undefined")return;var o=BWF.init;BWF.init=function(a){a=a||{};var h=a.handlers||{},p=h.A;h.A=function(c){if(typeof p==="function")p(c);var pan=Q("#humidity-pan");if(!pan)return;var active=typeof c.ht!=="undefined"&&c.ht<=100;if(!active){pan.classList.add("no-display");return;}pan.classList.remove("no-display");if(typeof c.h!=="undefined"){Q("#humidity-info").classList.remove("no-display");Q("#humidity").innerHTML=(c.h<=100)?c.h+"%":"--";}if(typeof c.hr!=="undefined"){Q("#room-humidity-info").classList.remove("no-display");Q("#room-humidity").innerHTML=(c.hr<=100)?c.hr+"%":"--";}if(typeof c.ht!=="undefined"){Q("#humidity-set-info").classList.remove("no-display");Q("#humidity-set").innerHTML=c.ht+"%";}if(typeof c.hs!=="undefined"){var s=["Idle","Dehumidifying","Humidifying","Wait to Dehumidify","Wait to Humidify","Humidify min Time","Dehumidify min Time"];Q("#hc-state-info").classList.remove("no-display");Q("#hc-state").innerHTML=s[c.hs];}};a.handlers=h;return o.call(BWF,a);};})();</script>'
+$ProfileDialogCss = '#dlg_saveas .modal-content,#profile-list-pane .modal-content{background:#fff!important;background-color:#fff!important;color:#000!important;border:1px solid #ccc!important;box-shadow:0 4px 16px rgba(0,0,0,.2)!important}#dlg_saveas .modal-content .msg,#dlg_saveas .modal-content span,#profile-list-pane .modal-content h2.profile-load-heading,#profile-list-pane .modal-content .btn:not(.rmbutton){color:#000!important;-webkit-text-fill-color:#000!important}#dlg_saveas .modal-content input[type=text]{color:#000!important;-webkit-text-fill-color:#000!important;background:#fff!important;background-color:#fff!important;border:1px solid #ccc!important;box-shadow:none!important;display:inline-block!important;width:auto!important;padding:8px 10px!important;margin:8px 4px!important}'
+$ConfigNetworkCss = '#networkselection .center a,#networkselection #networks a.ssid,#networkselection .nwlist a.ssid{color:#e8a838!important;-webkit-text-fill-color:#e8a838!important;font-weight:600!important;text-decoration:none!important}#networkselection .center a:hover,#networkselection #networks a.ssid:hover{color:#f0b850!important;-webkit-text-fill-color:#f0b850!important}'
+$GravityDialogCss = '#dlg_addcalpoint .modal-content{background:#fff!important;background-color:#fff!important;color:#000!important;border:1px solid #ccc!important;box-shadow:0 4px 16px rgba(0,0,0,.2)!important}#dlg_addcalpoint .modal-content h5,#dlg_addcalpoint .modal-content label,#dlg_addcalpoint .modal-content span:not(.delbutton),#dlg_addcalpoint .modal-content th,#dlg_addcalpoint .modal-content td,#dlg_addcalpoint .modal-content .modal-title{color:#000!important;-webkit-text-fill-color:#000!important}#dlg_addcalpoint .modal-content input[type=number],#dlg_addcalpoint .modal-content input[type=text]{color:#000!important;-webkit-text-fill-color:#000!important;background:#fff!important;background-color:#fff!important;border:1px solid #ccc!important}#dlg_addcalpoint .caltable tbody tr.odd{background:#eee!important}#dlg_addcalpoint .caltable tbody tr.even{background:#fff!important}#dlg_addcalpoint .caltable td,#dlg_addcalpoint .caltable th{color:#000!important;border-color:rgba(0,0,0,.87)!important}'
+$ControlFixCss = $ControlLayoutCss + $ProfileDialogCss + '#delbtn,#clearbtn,#setnow,#saveasbtn,#loadbtn{color:#000!important}#tc_chart text,#tc_chart .dygraph-axis-label,#tc_chart .dygraph-xlabel,#tc_chart .dygraph-ylabel{color:#000!important;fill:#000!important}' + $ControlExtraInputSel + '{color:#000!important;-webkit-text-fill-color:#000!important;background:#fff!important;background-color:#fff!important;background-image:none!important;border:1px solid #ccc!important;display:inline-block!important;width:auto!important;padding:8px 10px!important;margin:8px 4px!important;vertical-align:middle!important;box-sizing:border-box!important}'
 $ControlChartHookJs = '<script id=mazza-control-chart-hook>(function(){function f(){var c=document.getElementById("tc_chart");if(!c)return;c.querySelectorAll("text").forEach(function(el){el.style.setProperty("fill","#000","important");});}new MutationObserver(f).observe(document.documentElement,{subtree:true,childList:true});document.addEventListener("DOMContentLoaded",f);f();})();</script>'
 
 function Convert-HtmlToWdocHeader {
@@ -91,6 +98,102 @@ function Strip-UiFixes {
     $h = [regex]::Replace($h, '<style id=mazza-control-text-fix>[^<]*</style>', '')
     $h = [regex]::Replace($h, '<script id=mazza-control-chart-hook>[^<]*</script>', '')
     $h = [regex]::Replace($h, '<script id=mazza-title-hook>[^<]*</script>', '')
+    $h = [regex]::Replace($h, '<script id=mazza-hc-fix>[^<]*</script>', '')
+    $h = [regex]::Replace($h, '<script id=mazza-humidity-pane-fix>[^<]*</script>', '')
+    $h = [regex]::Replace($h, '<style id=mazza-index-watermark>[^<]*</style>', '')
+    $h = [regex]::Replace($h, '<style id=mazza-config-network>[^<]*</style>', '')
+    $h = [regex]::Replace($h, '<style id=mazza-gravity-dialog>[^<]*</style>', '')
+    $h = [regex]::Replace($h, '<style id=mazza-pressure-dialog>[^<]*</style>', '')
+    $h = [regex]::Replace($h, '<img id=mazza-watermark[^>]*>', '')
+    return $h
+}
+
+$Script:LogoDataUri = $null
+function Get-LogoDataUri {
+    if (-not $Script:LogoDataUri) {
+        $logoPath = Join-Path $PSScriptRoot '..\extra\logo_mazza_src.png'
+        if (-not (Test-Path $logoPath)) {
+            throw "Logo nao encontrada: $logoPath"
+        }
+        $bytes = [IO.File]::ReadAllBytes($logoPath)
+        $Script:LogoDataUri = 'data:image/png;base64,' + [Convert]::ToBase64String($bytes)
+    }
+    return $Script:LogoDataUri
+}
+
+function Apply-IndexWatermark {
+    param([string]$Html, [string]$FilePath)
+    if ($FilePath -notmatch 'index_htm\.h$') { return $Html }
+    $h = $Html
+    $h = [regex]::Replace($h, '<img id=mazza-watermark[^>]*>', '')
+    $h = [regex]::Replace($h, '<style id=mazza-index-watermark>[^<]*</style>', '')
+    $uri = Get-LogoDataUri
+    $css = '<style id=mazza-index-watermark>' + $IndexWatermarkCss + '</style>'
+    $img = '<img id=mazza-watermark src="' + $uri + '" alt="">'
+    if ($h -match '<div id=div_g class=chart-main></div>') {
+        $h = [regex]::Replace($h, '(<div id=div_g class=chart-main></div>)', ('$1' + $img), 1)
+    } elseif ($h -match '<div main flex>') {
+        $h = [regex]::Replace($h, '(<div main flex>)', ('$1' + $img), 1)
+    } elseif ($h -match '</body>') {
+        $h = $h.Replace('</body>', $img + '</body>')
+    }
+    if ($h -match '</body>') { return $h.Replace('</body>', $css + '</body>') }
+    return $h + $css
+}
+
+function Apply-HumidityTextFix {
+    param([string]$Html, [string]$FilePath)
+    $h = $Html
+    if ($FilePath -notmatch 'portuguese-br_control_htm\.h$') { return $h }
+    $h = $h.Replace('Target Relative Humidity', 'Setpoint Umidade Relativa')
+    $h = $h.Replace('Umidade Relativa Alvo', 'Setpoint Umidade Relativa')
+    $h = $h.Replace('Humidity Control', 'Controle Umidade')
+    $h = $h.Replace('Controle de Umidade', 'Controle Umidade')
+    $h = $h.Replace('>Mode<', '>Modo<')
+    $h = $h.Replace('>Off<', '>Desligado<')
+    $h = $h.Replace('>Control<', '>Controle<')
+    $h = $h.Replace('id=hc-target name=target-humidity size=4>', 'id=hc-target name=target-humidity size=4 placeholder=>')
+    $h = $h.Replace('id="hc-target" name="target-humidity" size=4>', 'id="hc-target" name="target-humidity" size=4 placeholder="">')
+    return $h
+}
+
+function Apply-PageTitleFix {
+    param([string]$Html, [string]$FilePath)
+    $h = $Html
+    if ($FilePath -match 'portuguese-br_log_htm\.h$') {
+        $h = $h.Replace('BrewPiLess | Registros', 'Registros')
+        $h = [regex]::Replace($h, '<title>\s*BrewPiLess\s*\|\s*Registros\s*</title>', '<title>Registros</title>')
+        $h = [regex]::Replace($h, '<h4>\s*BrewPiLess\s*\|\s*Registros\s*</h4>', '<h4>Registros</h4>')
+    }
+    if ($FilePath -match 'portuguese-br_config_htm\.h$') {
+        $configTitle = 'Configura' + [char]0x00E7 + [char]0x00E3 + 'o de rede'
+        $badTitles = @(
+            'Configuracao de rede',
+            'Configurao de rede',
+            'BrewPiLess | Configuracao de rede',
+            'BrewPiLess Configuration',
+            'BrewPiLess Configuracao'
+        )
+        foreach ($bad in $badTitles) { $h = $h.Replace($bad, $configTitle) }
+        $h = [regex]::Replace($h, 'BrewPiLess\s*\|\s*Configura.{0,20}de rede', $configTitle)
+        $h = [regex]::Replace($h, 'Configura.{0,20}de rede', $configTitle)
+        $h = [regex]::Replace($h, '<title>\s*[^<]*BrewPiLess\s*Configuration[^<]*</title>', "<title>$configTitle</title>")
+        $h = [regex]::Replace($h, '<h5>\s*[^<]*BrewPiLess\s*Configuration[^<]*</h5>', "<h5>$configTitle</h5>")
+    }
+    return $h
+}
+
+function Apply-BodyHooks {
+    param([string]$Html, [string]$FilePath)
+    $h = $Html
+    if ($FilePath -match 'control_htm\.h$' -and $h -notmatch 'mazza-hc-fix') {
+        if ($h -match '</body>') { $h = $h.Replace('</body>', $HcFixJs + '</body>') }
+        else { $h += $HcFixJs }
+    }
+    if ($FilePath -match 'index_htm\.h$' -and $h -notmatch 'mazza-humidity-pane-fix') {
+        if ($h -match '</body>') { $h = $h.Replace('</body>', $IndexHumidityFixJs + '</body>') }
+        else { $h += $IndexHumidityFixJs }
+    }
     return $h
 }
 
@@ -118,18 +221,45 @@ function Apply-FooterPatch {
     return $h
 }
 
+function Strip-EmbeddedControlCss {
+    param([string]$Html)
+    $h = $Html
+    $h = [regex]::Replace($h, 'select\.md\{width:100%;font-size:16px;height:25\.6px[^}]+\}', '')
+    return $h
+}
+
 function Apply-UiFixes {
     param([string]$Html, [string]$FilePath)
     $h = Strip-UiFixes $Html
     $h = Apply-AjaxFix $h
     $h = Apply-FooterPatch $h
     $h = Apply-TitleHook $h
-    $extra = '<style id=mazza-ui-fix>' + $GlobalFixCss + '</style>'
+    $h = Apply-HumidityTextFix $h -FilePath $FilePath
+    $h = Apply-PageTitleFix $h -FilePath $FilePath
+    $h = Apply-IndexWatermark $h -FilePath $FilePath
     if ($FilePath -match 'control_htm\.h$') {
-        $extra += '<style id=mazza-control-text-fix>' + $ControlFixCss + '</style>' + $ControlChartHookJs
+        $h = Strip-EmbeddedControlCss $h
     }
-    if ($h -match '</head>') { return $h.Replace('</head>', $extra + '</head>') }
-    return $h
+    $styleBlock = '<style id=mazza-ui-fix>' + $GlobalFixCss + '</style>'
+    if ($FilePath -match 'control_htm\.h$') {
+        $styleBlock += '<style id=mazza-control-text-fix>' + $ControlFixCss + '</style>'
+    }
+    if ($FilePath -match 'config_htm\.h$') {
+        $styleBlock += '<style id=mazza-config-network>' + $ConfigNetworkCss + '</style>'
+    }
+    if ($FilePath -match 'gdc(_e32)?_htm\.h$') {
+        $styleBlock += '<style id=mazza-gravity-dialog>' + $GravityDialogCss + '</style>'
+    }
+    if ($FilePath -match 'pressure_htm\.h$') {
+        $styleBlock += '<style id=mazza-pressure-dialog>' + $PressureDialogCss + '</style>'
+    }
+    $h = Apply-BodyHooks $h -FilePath $FilePath
+    $tail = ''
+    if ($FilePath -match 'control_htm\.h$') { $tail += $ControlChartHookJs }
+    $tail += $styleBlock
+    if ($h -match '</body>') { return $h.Replace('</body>', $tail + '</body>') }
+    if ($h -match '</head>') { return $h.Replace('</head>', $styleBlock + '</head>') }
+    return $h + $tail
 }
 
 $count = 0

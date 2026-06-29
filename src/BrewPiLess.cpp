@@ -164,6 +164,11 @@ static bool isProtectedWebPage(const String &path)
 	return path.endsWith("/config.htm") || path.endsWith("/backup.htm");
 }
 
+static bool isPublicWebPage(const String &path)
+{
+	return path.endsWith("/pressure.htm");
+}
+
 #if EanbleParasiteTempControl
 #define ParasiteTempControlPath "/ptc"
 #endif
@@ -742,8 +747,6 @@ public:
 		#endif
 		#if SupportPressureTransducer
 		else if(request->url() == PRESSURE_PATH){
-	 	    if(!request->authenticate(syscfg->username, syscfg->password))
-	        return request->requestAuthentication();
 
 			if(request->method() == HTTP_GET){
 				if(request->hasParam("r")){
@@ -754,8 +757,6 @@ public:
 				}
 			}else{
 				// post
-				if(!request->authenticate(syscfg->username, syscfg->password)) return request->requestAuthentication();
-
 				if(request->hasParam("data",true)){					
 					if(theSettings.dejsonPressureMonitorSettings(request->getParam("data",true)->value())){
 						theSettings.save();
@@ -831,7 +832,7 @@ public:
 			*/
 	 	    if(isProtectedWebPage(path) && !requireWebAuth(request, syscfg)) return;
 
-	 	    if(syscfg->passwordLcd && !requireWebAuth(request, syscfg)) return;
+	 	    if(syscfg->passwordLcd && !isPublicWebPage(path) && !requireWebAuth(request, syscfg)) return;
 
 	 		sendFile(request,path); //request->send(FileSystem, path);
 		}
@@ -1192,9 +1193,8 @@ void periodicalReport(void)
 
 	if(humidityControl.mode() == HC_ModeControl){
 		doc["ht"] = humidityControl.targetRH();
+		doc["hs"] = humidityControl.state();
 	}
-
-	doc["hs"] = humidityControl.state();
 
 #endif
 

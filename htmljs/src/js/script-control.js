@@ -870,22 +870,41 @@ function ccparameter(s) {
 
 
 function HC_init(){
-    Q("#humidity-control").style.display="none";
+    Q("#humidity-control").style.display = "";
+    if (Q("#hc-target")) Q("#hc-target").value = "";
+    if (Q("#hc-mode")) Q("#hc-mode").value = "0";
 }
 function HC_show(config){
-    Q("#humidity-control").style.display="";
+    Q("#humidity-control").style.display = "";
+    if (!config || config.m == 0 || !config.t || config.t > 100) {
+        if (Q("#hc-target")) Q("#hc-target").value = "";
+        if (Q("#hc-mode")) Q("#hc-mode").value = "0";
+        return;
+    }
     Q("#hc-mode").value = config.m;
     Q("#hc-target").value = config.t;
 }
 
 function HC_apply(){
-    var target = Q("#hc-target").value;
-    var mode =  Q("#hc-mode").value;
+    var target = Q("#hc-target").value.trim();
+    var mode = 0;
+    var value = 0;
+    if (target) {
+        value = parseInt(target, 10);
+        if (isNaN(value) || value < 0 || value > 100) {
+            alert("<%= failed %>");
+            return;
+        }
+        mode = 1;
+        Q("#hc-mode").value = "1";
+    } else {
+        Q("#hc-mode").value = "0";
+    }
 
     s_ajax({
         url:"/rh",
         m: "POST",
-        data: "m=" + mode +"&t=" + target,
+        data: "m=" + mode + "&t=" + value,
         success: function(a) {
             alert("<%= done %>")
         },
